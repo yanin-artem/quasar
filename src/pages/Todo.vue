@@ -14,6 +14,7 @@
       <q-carousel-slide :name="3" img-src="~assets/img/9.png" />
     </q-carousel>
   </div>
+
   </q-page>
 </template>
 
@@ -24,7 +25,7 @@ export default defineComponent({
   name: 'IndexPage',
   setup () {
     return {
-      slide: ref(1)
+      slide: ref(1),
     }
   }
 })
