@@ -9,8 +9,8 @@
       infinite
       class="col-8 offset-2 carousel"
     >
-      <q-carousel-slide :name="1" img-src="~assets/img/7.png" />
-      <q-carousel-slide :name="2" img-src="~assets/img/8.png" />
+      <q-carousel-slide :name="1" img-src="~assets/img/8.png" />
+      <q-carousel-slide :name="2" img-src="~assets/img/7.png" />
       <q-carousel-slide :name="3" img-src="~assets/img/9.png" />
     </q-carousel>
   </div>

@@ -1,14 +1,17 @@
 <template>
   <q-layout view="hHh Lpr lff">
     <q-header elevated>
-      <div class="q-pa-md q-gutter-sm">
-        <q-toolbar>
+      <div class="q-pa-md q-gutter-sm row items-center">
+        <q-toolbar class="col-auto">
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-    <div class="text-h4 center">
-      Коты
-      <q-badge align="top">cli v1.0.0</q-badge>
-    </div>
         </q-toolbar>
+        <div>
+        <div class="text-h4 center">
+          Коты
+          <q-badge align="top">cli v1.0.0</q-badge>
+        </div>
+        <div class="text-subtitle">{{ todayDate }}</div>
+      </div>
   </div>
     </q-header>
     <q-drawer
@@ -70,7 +73,7 @@
         </q-scroll-area>
         <q-avatar size="40px"
         class="absolute z-max user-avatar"
-        :class="{'active':!miniState}">
+        :class="{ 'active': !miniState }">
               <img src="../assets/img/xtc0X1VuDRf2wTTtae40_t3BF-wAEDXPAg_PLIsK5TrCQEI-6CE6ANkWq3mU8de2qWsUqLx8KdgNF5OKR-9lc0aH.jpg">
         </q-avatar>
         <q-img v-show="!miniState" class="absolute-top" src="../assets/img/gLc9sXAJ-Pbrae7usTic6bq-q39WnKYIkM-W015vWKxV6rAgZB0RZWQhQrmLEct2H1XcHkIqbZkAQgSfSAeFA0_Z.jpg" style="height: 150px">
@@ -81,7 +84,7 @@
         </q-img>
       </q-drawer>
     <q-page-container>
-      <router-view v-slot="{Component}">
+      <router-view v-slot="{ Component }">
         <keep-alive>
           <component :is="Component"/>
         </keep-alive>
@@ -91,8 +94,8 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
-
+import { defineComponent, ref } from 'vue';
+import { date } from 'quasar';
 
 
 export default defineComponent({
@@ -101,6 +104,12 @@ export default defineComponent({
     return {
       drawer: ref(false),
       miniState: ref(true)
+    }
+  },
+  computed: {
+    todayDate() {
+      const timeStamp = Date.now()
+      return date.formatDate(timeStamp, "dddd D MMMM")
     }
   }
 })
