@@ -1,5 +1,5 @@
 <template>
-  <q-page >
+  <q-page>
     <div class="q-pa-md row">
     <q-carousel
       animated
@@ -7,7 +7,7 @@
       arrows
       navigation
       infinite
-      class="col-4 offset-4 carousel"
+      class="col-8 offset-2 carousel"
     >
       <q-carousel-slide :name="1" img-src="~assets/img/7.png" />
       <q-carousel-slide :name="2" img-src="~assets/img/8.png" />
@@ -33,6 +33,6 @@ export default defineComponent({
 
 <style>
   .carousel{
-    min-height: 300px;
+    min-height: 600px;
   }
 </style>

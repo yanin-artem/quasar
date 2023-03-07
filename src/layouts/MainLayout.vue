@@ -4,7 +4,7 @@
       <div class="q-pa-md q-gutter-sm">
         <q-toolbar>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-    <div class="text-h4">
+    <div class="text-h4 center">
       Коты
       <q-badge align="top">cli v1.0.0</q-badge>
     </div>
@@ -19,8 +19,8 @@
         @mouseover="miniState = false"
         @mouseout="miniState = true"
 
-        :width="200"
-        :breakpoint="500"
+        :width="250"
+        :breakpoint="600"
         bordered
         class="bg-grey-3"
       >
@@ -30,7 +30,7 @@
           style="margin-top: 150px;">
             <q-item to="/" exact clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="inbox" />
+                <q-icon name="home" />
               </q-item-section>
 
               <q-item-section>
@@ -40,7 +40,7 @@
 
             <q-item to="/help" exact clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="star" />
+                <q-icon name="help_outline" />
               </q-item-section>
 
               <q-item-section>
@@ -50,23 +50,20 @@
 
             <q-item to="/about" exact clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="send" />
+                <q-icon name="supervisor_account" />
               </q-item-section>
 
               <q-item-section>
                 About
               </q-item-section>
             </q-item>
-
-            <q-separator />
-
-            <q-item clickable v-ripple>
+            <q-item to="/contacts" exact clickable v-ripple>
               <q-item-section avatar>
-                <q-icon name="drafts" />
+                <q-icon name="contact_phone" />
               </q-item-section>
 
               <q-item-section>
-                Drafts
+                Contancts
               </q-item-section>
             </q-item>
           </q-list>
@@ -74,9 +71,9 @@
         <q-avatar size="40px"
         class="absolute z-max user-avatar"
         :class="{'active':!miniState}">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+              <img src="../assets/img/xtc0X1VuDRf2wTTtae40_t3BF-wAEDXPAg_PLIsK5TrCQEI-6CE6ANkWq3mU8de2qWsUqLx8KdgNF5OKR-9lc0aH.jpg">
         </q-avatar>
-        <q-img v-show="!miniState" class="absolute-top" src="https://cdn.quasar.dev/img/material.png" style="height: 150px">
+        <q-img v-show="!miniState" class="absolute-top" src="../assets/img/gLc9sXAJ-Pbrae7usTic6bq-q39WnKYIkM-W015vWKxV6rAgZB0RZWQhQrmLEct2H1XcHkIqbZkAQgSfSAeFA0_Z.jpg" style="height: 150px">
           <div class="absolute-bottom bg-transparent">
             <div class="text-weight-bold">Yanin Artem</div>
             <div>@yaartemmm</div>
@@ -119,4 +116,11 @@ export default defineComponent({
     left: auto
     right: auto
     margin-left: 16px
+  .q-header
+    background: url('../assets/img/header_bg.jpg') 100% 50%/cover no-repeat
+    height: 100px
+  .q-page-container
+    background: #1d1d1d
+    color: #fff
+
 </style>
