@@ -4,14 +4,15 @@
       <q-list
       dark
       bordered
-      separator>
+      separator
+      ref="todo_card">
         <q-item
         v-for="(item,index) in todos"
         @click="item.done=!item.done"
         :key="item.title"
         v-ripple
         clickable
-        class="row wrap"
+        class="row wrap todo_card"
         :class="{'done':item.done}">
           <q-checkbox keep-color
           v-model="item.done"
@@ -33,7 +34,8 @@
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue';
+import gsap from 'gsap';
 
 export default defineComponent({
   name: 'Todo',
@@ -53,12 +55,20 @@ export default defineComponent({
       }
     ]);
 
+
+    const todo_card = ref();
+
     const deleteTodo = (index)=>{
+      // gsap.to(todo_card.value[index],{
+      //   x: 200
+      // });
       todos.value.splice(index,1);
     }
+
     return {
       todos,
-      deleteTodo
+      deleteTodo,
+      todo_card
     }
   }
 })
