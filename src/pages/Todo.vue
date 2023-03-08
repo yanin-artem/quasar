@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted } from 'vue';
+import { defineComponent, ref} from 'vue';
 import gsap from 'gsap';
 
 export default defineComponent({

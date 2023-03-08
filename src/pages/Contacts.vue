@@ -5,9 +5,11 @@
       About
     </h1>
     </transition>
-    <p>
+    <transition appear @before-enter="beforeEnterP" @enter="enterP">
+      <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam reprehenderit eveniet, dolore qui maiores hic ipsum voluptate doloribus quaerat atque labore eaque non in illo, deserunt eos. Explicabo, ad expedita?
     </p>
+    </transition>
   </q-page>
 </template>
 
@@ -22,15 +24,30 @@ export default {
     const enter=(el)=>{
       gsap.to(el,{
         opacity:1,
-        delay:2,
+        delay:1,
         duration:1,
         y:2
       })
     }
 
+    const beforeEnterP=(el)=>{
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(-100px)'
+    }
+    const enterP=(el)=>{
+      gsap.to(el,{
+        opacity:1,
+        delay:2,
+        duration:1,
+        x:2
+      })
+    }
+
     return {
       enter,
-      beforeEnter
+      beforeEnter,
+      beforeEnterP,
+      enterP
     }
   }
 }
