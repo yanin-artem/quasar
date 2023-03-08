@@ -7,7 +7,7 @@
         </q-toolbar>
         <div>
         <div class="text-h4 center">
-          Коты
+          Todo
           <q-badge align="top">cli v1.0.0</q-badge>
         </div>
         <div class="text-subtitle">{{ todayDate }}</div>
