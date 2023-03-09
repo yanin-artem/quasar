@@ -8,17 +8,29 @@
         <Input @addTask="addTask"/>
         <Todos
         :todos="todos"
-        @deleteTodo="deleteTodo"/>
+        @deleteTodo="deleteTodo"
+        @toggleDone="toggleDone"/>
       </q-list>
   </q-page>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
 import gsap from 'gsap';
 import { useQuasar } from 'quasar'
 import Input from 'src/components/Todo/Input.vue';
 import Todos from 'src/components/Todo/Todos.vue';
+import {
+  collection,
+  onSnapshot,
+  addDoc,
+  doc,
+  deleteDoc,
+  updateDoc,
+  query,
+  orderBy,
+} from "firebase/firestore";
+import { db } from '../firebase';
 
 export default defineComponent({
   name: 'Todo',
@@ -34,23 +46,28 @@ export default defineComponent({
 
     const $q = useQuasar();
 
-    const addTask = (text) => {
-      if (!todos.value.some(e=>e.title===text))
-      {
-        todos.value.unshift({
+    const cardDataCollectinRef = collection(db, "todos");
+    const cardDataCollectinQuery = query(cardDataCollectinRef, orderBy("date", "desc"));
+
+    const addTask = async (text,status) => {
+      if (!todos.value.some(e => e.title === text)) {
+        await addDoc(cardDataCollectinRef, {
           title: text,
-          done: false
+          done: false,
+          status: status,
+          date: Date.now()
         });
       }
-      else{
+      else {
         $q.notify({
           message: 'You already have this task',
           icon: 'report_problem'
-        })}
+        })
+      }
 
     }
 
-    const deleteTodo = (index) => {
+    const deleteTodo = (id) => {
       // console.log(todo_card)
       // gsap.to(todo_card.value[index],{
       //   x: 200,
@@ -65,7 +82,7 @@ export default defineComponent({
         cancel: true,
         persistent: true
       }).onOk(() => {
-        todos.value.splice(index, 1);
+        deleteDoc(doc(cardDataCollectinRef, id));
         $q.notify({
           message: 'Task deleted',
           icon: 'done'
@@ -73,11 +90,35 @@ export default defineComponent({
       })
     }
 
+    const toggleDone = (id) => {
+      const index = todos.value.findIndex((card) => card.id === id);
+      updateDoc(doc(cardDataCollectinRef, id), {
+        done: !todos.value[index].done
+      });
+    }
+
+    onMounted(() => {
+      onSnapshot(cardDataCollectinQuery, (querySnapshot) => {
+        const fbTodos = [];
+        querySnapshot.forEach((doc) => {
+          const todo = {
+            id: doc.id,
+            title: doc.data().title,
+            done: doc.data().done,
+            status: doc.data().status
+          }
+          fbTodos.push(todo);
+        });
+        todos.value = fbTodos;
+      });
+    })
+
     return {
       todos,
       deleteTodo,
       todo_card,
       addTask,
+      toggleDone,
     }
   }
 })

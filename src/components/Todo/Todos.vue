@@ -1,7 +1,7 @@
 <template>
   <q-item
-        v-for="(item,index) in todos"
-        @click="item.done=!item.done"
+        v-for="item in todos"
+        @click="toggleDone(item.id)"
         :key="item.title"
         v-ripple
         clickable
@@ -12,15 +12,20 @@
           v-model="item.done"
           color="teal"
           class="no-pointer-events"/>
-          <q-item-section>
+          <q-item-section class="col-10">
             <q-item-label>
               {{item.title}}
             </q-item-label>
           </q-item-section>
+          <q-item-section>
+            <i class="q-icon notranslate material-icons text-primary">
+              {{ item.status }}
+            </i>
+          </q-item-section>
           <q-item-section
           v-if="item.done"
           side>
-          <q-btn @click.stop="deleteTodo(index)" flat round color="primary" icon="delete" />
+          <q-btn @click.stop="deleteTodo(item.id)" flat round color="primary" icon="delete" />
           </q-item-section>
         </q-item>
 </template>
@@ -35,14 +40,21 @@ export default {
             }
         }
     },
-  emits:['deleteTodo'],
+  emits:[
+    'deleteTodo',
+    'toggleDone'
+],
   setup (props,{emit}) {
 
-    const deleteTodo=(index)=>{
-      emit('deleteTodo',index);
+    const toggleDone=(id)=>{
+      emit('toggleDone',id);
+    }
+    const deleteTodo=(id)=>{
+      emit('deleteTodo',id);
     }
     return {
-      deleteTodo
+      deleteTodo,
+      toggleDone
     }
   }
 }
