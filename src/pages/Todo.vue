@@ -5,15 +5,8 @@
       dark
       bordered
       separator>
-      <div class="q-pa-lg">
-        <q-input @keyup.enter="addTask" dark filled bottom-slots v-model="todoText" label="Add task">
-        <template v-slot:append>
-          <q-btn @click="addTask" round dense flat icon="add" />
-        </template>
-      </q-input>
-      </div>
-      <transition-group>
-        <q-item
+      <Input @addTask="addTask"/>
+        <!-- <q-item
         v-for="(item,index) in todos"
         @click="item.done=!item.done"
         :key="item.title"
@@ -36,8 +29,10 @@
           side>
           <q-btn @click.stop="deleteTodo(index)" flat round color="primary" icon="delete" />
           </q-item-section>
-        </q-item>
-      </transition-group>
+        </q-item> -->
+        <Todos
+        :todos="todos"
+        @deleteTodo="deleteTodo"/>
       </q-list>
   </q-page>
 </template>
@@ -46,37 +41,28 @@
 import { defineComponent, ref} from 'vue';
 import gsap from 'gsap';
 import { useQuasar } from 'quasar'
+import Input from 'src/components/Todo/Input.vue';
+import Todos from 'src/components/Todo/Todos.vue';
 
 export default defineComponent({
   name: 'Todo',
+  components:{
+    Input,
+    Todos
+  },
   setup () {
     const todos=ref([
-      {
-        title:'fst',
-        done:false
-      },
-      {
-        title:'scnd',
-        done:false
-      },
-      {
-        title:'third',
-        done:false
-      }
     ]);
-
-    const todoText = ref('');
 
     const todo_card = ref();
 
     const $q = useQuasar();
 
-    const addTask=()=>{
+    const addTask=(text)=>{
       todos.value.unshift({
-        title: todoText.value,
+        title: text,
         done:false
       });
-      todoText.value = '';
     }
 
     const deleteTodo = (index)=>{
@@ -107,7 +93,6 @@ export default defineComponent({
       deleteTodo,
       todo_card,
       addTask,
-      todoText
     }
   }
 })
