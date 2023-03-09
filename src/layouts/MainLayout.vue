@@ -1,19 +1,8 @@
 <template>
   <q-layout view="hHh Lpr lff">
-    <q-header elevated>
-      <div class="q-pa-md q-gutter-sm row items-center">
-        <q-toolbar class="col-auto">
-          <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-        </q-toolbar>
-        <div>
-        <div class="text-h4 center">
-          Todo
-          <q-badge align=top>cli v1.0.0</q-badge>
-        </div>
-        <div class="text-subtitle">{{ todayDate }}</div>
-      </div>
-  </div>
-    </q-header>
+    <Header
+    :drawer="drawer"
+    @drawerToggle="drawer=!drawer"/>
     <q-drawer
         v-model="drawer"
         show-if-above
@@ -95,23 +84,20 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
-import { date } from 'quasar';
+import Header from 'src/components/Layout/Header.vue';
 
 
 export default defineComponent({
   name: 'MainLayout',
+  components:{
+    Header
+  },
   setup() {
     return {
       drawer: ref(false),
       miniState: ref(true)
     }
   },
-  computed: {
-    todayDate() {
-      const timeStamp = Date.now()
-      return date.formatDate(timeStamp, "dddd D MMMM")
-    }
-  }
 })
 </script>
 
