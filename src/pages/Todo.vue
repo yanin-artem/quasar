@@ -11,6 +11,15 @@
         @deleteTodo="deleteTodo"
         @toggleDone="toggleDone"/>
       </q-list>
+      <div v-if="!todos.length" class="no-task absolute-center">
+        <q-icon
+        name="plagiarism"
+        color="primary"
+        size="150px"/>
+        <div class="text-h4 text-grey-8 text-center">
+          No tasks!
+        </div>
+      </div>
   </q-page>
 </template>
 
@@ -42,7 +51,7 @@ export default defineComponent({
     const todos = ref([
     ]);
 
-    const todo_card = ref();
+    // const todo_card = ref();
 
     const $q = useQuasar();
 
@@ -116,7 +125,7 @@ export default defineComponent({
     return {
       todos,
       deleteTodo,
-      todo_card,
+      // todo_card,
       addTask,
       toggleDone,
     }
@@ -133,4 +142,6 @@ export default defineComponent({
   .q-dialog-plugin
     button
       color: #ff7f76 !important
+  .no-task
+    opacity: 0.7
 </style>
